@@ -68,12 +68,12 @@ app.put('/api/genres/:id', (req, res) => {
     res.send(genre)
 });
 
-app.delete('api/genres/:id', (req, res) => {
+app.delete('/api/genres/:id', (req, res) => {
     const genre = findGenre(req.params.id)
     if (!genre) return res.status(404).send(`There is no genre with ID ${req.params.id}`)
 
     const genreIndex = genres.indexOf(genre)
-    genres.slice(genreIndex)
+    genres.splice(genreIndex, 1)
 
     res.send(genre)
 })
