@@ -1,3 +1,6 @@
+const express = require('express');
+const router = express.Router()
+
 //helper functions
 const findGenre = (id) => genres.find(genre => genre.id === parseInt(id))
 
@@ -10,12 +13,12 @@ const validateGenre = (genre) => {
 }
 
 
-app.get('/api/genres', (req, res) => {
+router.get('/api/genres', (req, res) => {
     res.send(genres)
 });
 
 
-app.get('/api/genres/:id', (req, res) => {
+router.get('/api/genres/:id', (req, res) => {
     const genre = findGenre(req.params.id)
     if (!genre) return res.status(404).send(`There is no genre with ID ${req.params.id}`)
 
@@ -23,7 +26,7 @@ app.get('/api/genres/:id', (req, res) => {
 });
 
 
-app.post('/api/genres', (req, res) => {
+router.post('/api/genres', (req, res) => {
 
     const { error } = validateGenre(req.body)
 
@@ -38,7 +41,7 @@ app.post('/api/genres', (req, res) => {
     res.send(genre)
 });
 
-app.put('/api/genres/:id', (req, res) => {
+router.put('/api/genres/:id', (req, res) => {
 
     const genre = findGenre(req.params.id)
     if (!genre) return res.status(404).send(`There is no genre with ID ${req.params.id}`)
@@ -52,7 +55,7 @@ app.put('/api/genres/:id', (req, res) => {
     res.send(genre)
 });
 
-app.delete('/api/genres/:id', (req, res) => {
+router.delete('/api/genres/:id', (req, res) => {
     const genre = findGenre(req.params.id)
     if (!genre) return res.status(404).send(`There is no genre with ID ${req.params.id}`)
 
@@ -61,3 +64,6 @@ app.delete('/api/genres/:id', (req, res) => {
 
     res.send(genre)
 })
+
+
+module.exports = router;
