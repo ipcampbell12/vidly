@@ -1,6 +1,17 @@
 const express = require('express');
 const router = express.Router()
 
+
+//data
+const genres = [
+    { id: 1, name: 'Fantasy' },
+    { id: 2, name: 'Science Fiction' },
+    { id: 3, name: 'Action' },
+    { id: 4, name: 'Comedy' }
+];
+
+
+
 //helper functions
 const findGenre = (id) => genres.find(genre => genre.id === parseInt(id))
 
@@ -12,13 +23,13 @@ const validateGenre = (genre) => {
     return schema.validate(genre)
 }
 
-
-router.get('/api/genres', (req, res) => {
+//endpoints
+router.get('/', (req, res) => {
     res.send(genres)
 });
 
 
-router.get('/api/genres/:id', (req, res) => {
+router.get('//:id', (req, res) => {
     const genre = findGenre(req.params.id)
     if (!genre) return res.status(404).send(`There is no genre with ID ${req.params.id}`)
 
@@ -26,7 +37,7 @@ router.get('/api/genres/:id', (req, res) => {
 });
 
 
-router.post('/api/genres', (req, res) => {
+router.post('/', (req, res) => {
 
     const { error } = validateGenre(req.body)
 
@@ -41,7 +52,7 @@ router.post('/api/genres', (req, res) => {
     res.send(genre)
 });
 
-router.put('/api/genres/:id', (req, res) => {
+router.put('//:id', (req, res) => {
 
     const genre = findGenre(req.params.id)
     if (!genre) return res.status(404).send(`There is no genre with ID ${req.params.id}`)
@@ -55,7 +66,7 @@ router.put('/api/genres/:id', (req, res) => {
     res.send(genre)
 });
 
-router.delete('/api/genres/:id', (req, res) => {
+router.delete('//:id', (req, res) => {
     const genre = findGenre(req.params.id)
     if (!genre) return res.status(404).send(`There is no genre with ID ${req.params.id}`)
 
