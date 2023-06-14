@@ -1,5 +1,5 @@
 
-
+const Joi = require('joi');
 const express = require('express');
 const genres = require('./routes/genres')
 const helmet = require('helmet')
@@ -23,3 +23,4 @@ app.listen(port, () => {
 });
 
 
+module.exports = Joi

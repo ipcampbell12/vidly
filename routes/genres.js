@@ -1,9 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const appDebugger = require('debug')('app:startup')
-const Joi = require('joi');
-
-
+const Joi = require('../index')
 
 //data
 const genres = [
@@ -12,7 +10,6 @@ const genres = [
     { id: 3, name: 'Action' },
     { id: 4, name: 'Comedy' }
 ];
-
 
 
 //helper functions
