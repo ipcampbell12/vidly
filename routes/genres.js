@@ -26,6 +26,7 @@ const validateGenre = (genre) => {
 //endpoints
 router.get('/', (req, res) => {
     res.send(genres)
+    appDebugger('Get data')
 });
 
 
