@@ -1,5 +1,8 @@
 const express = require('express');
-const router = express.Router()
+const router = express.Router();
+const appDebugger = require('debug')('app:startup')
+const Joi = require('joi');
+
 
 
 //data
@@ -26,15 +29,17 @@ const validateGenre = (genre) => {
 //endpoints
 router.get('/', (req, res) => {
     res.send(genres)
-    appDebugger('Get data')
+    appDebugger('Retrieved all genres')
 });
 
 
-router.get('//:id', (req, res) => {
+router.get('/:id', (req, res) => {
     const genre = findGenre(req.params.id)
     if (!genre) return res.status(404).send(`There is no genre with ID ${req.params.id}`)
 
     res.send(genre)
+
+    appDebugger(`Retrieved the genre: ${genre.name}`)
 });
 
 
@@ -51,9 +56,11 @@ router.post('/', (req, res) => {
 
     genres.push(genre)
     res.send(genre)
+
+    appDebugger(`Created the genre: ${genre.name}`)
 });
 
-router.put('//:id', (req, res) => {
+router.put('/:id', (req, res) => {
 
     const genre = findGenre(req.params.id)
     if (!genre) return res.status(404).send(`There is no genre with ID ${req.params.id}`)
@@ -65,16 +72,22 @@ router.put('//:id', (req, res) => {
     genre.name = req.body.name;
 
     res.send(genre)
+
+    appDebugger(`Updated the genre: ${genre.name}`)
 });
 
-router.delete('//:id', (req, res) => {
+router.delete('/:id', (req, res) => {
     const genre = findGenre(req.params.id)
     if (!genre) return res.status(404).send(`There is no genre with ID ${req.params.id}`)
 
     const genreIndex = genres.indexOf(genre)
     genres.splice(genreIndex, 1)
 
+    appDebugger(`Deleting the genre: ${genre.name}`)
+
     res.send(genre)
+
+
 })
 
 
