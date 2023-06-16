@@ -4,7 +4,8 @@ services:
     container_name: ians-mongo
     restart: always
     build:
-      context: ./Users/iancampbell/Desktop/Muhib/Node/vidly
+      context: .
+      dockerfile: ./Dockerfile
     ports:
       - '5500:5500'
     external_links:
@@ -21,5 +22,13 @@ services:
   mongo-express:
     container_name: mongo-express
     image: mongo-express
+    depends_on:
+      - mongodb
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=pass
+      - ME_CONFIG_MONGODB_SERVER=mongo-dev
+      - ME_CONFIG_BASICAUTH_USERNAME=admin
+      - ME_CONFIG_BASICAUTH_PASSWORD=ihavealongpassword
     ports:
       - '8083:8081'
